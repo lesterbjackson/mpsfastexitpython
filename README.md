@@ -1,3 +1,4 @@
+<pre>
 # mpsfastexitpython
 #
 # Author:      Lester Jackson
@@ -15,3 +16,4 @@
 # License:     Apache License 2.0
 # Resources:   https://docs.microsoft.com/en-us/rest/api/playfab/multiplayer/multiplayer-server
 # Credits:     
+</pre>
