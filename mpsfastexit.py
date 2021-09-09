@@ -131,7 +131,7 @@ def ListBuildSettings(debug):
             for y in x['RegionConfigurations']:
                 regionslist.append(y['Region'])
                 
-            build['Regions'] = regionslist
+            build['RegionsList'] = regionslist
             buildlist.append(build)
             mps['builds']=buildlist
         return True
@@ -155,8 +155,9 @@ def UpdateServerLimits(bldDictionary):
 def ShutdownAllServers(bldDictionary):
     
     #Loop 1 - Fetch all servers to capture session IDs
-    regLength = bldDictionary['RegionLength']
-    for listmps in range(regLength):
+    #regLength = bldDictionary['RegionLength']
+    #for listmps in range(regLength):
+       
         method = "MultiplayerServer/ListMultiplayerServers"
         data = {'BuildId': bldDictionary['BuildId'], 'Region': bldDictionary['Region'], 'PageSize': 120}
         resp = MPSAPIHandler(method, headers, data, 0)
@@ -188,7 +189,7 @@ def ShutdownAllServers(bldDictionary):
                 if resp['code'] != 200:
                     print(json.dumps(resp, sort_keys=False, indent=4))
                     
-    return                
+        return                
 
 #############################################################################
 # MPS Fast Exit Main Loop Support
@@ -207,10 +208,10 @@ def MainLoopHandler(choice, mps):
     bldDictionary = {}
     for bld in mps["builds"]:
         regIndex = 0
-        regLength = len(bld['Regions'])
-        for region in range(regLength):
-            print("[Build# {}] - {} - {} - [Region# {}] - {}".format(bldIndex+1, bld['BuildName'], bld['BuildId'], regIndex+1, bld["Regions"][region]))
-            bldDictionary = {'BuildName': bld['BuildName'], 'BuildId': bld['BuildId'], 'Region': bld["Regions"][region], 'RegionLength': regLength }
+        regLength = len(bld['RegionsList'])     #Get length of regions within build
+        for region in range(regLength):         #Iterator among regions within build
+            print("[Build# {}] - {} - {} - [Region# {}] - {}".format(bldIndex+1, bld['BuildName'], bld['BuildId'], regIndex+1, bld["RegionsList"][region]))
+            bldDictionary = {'BuildName': bld['BuildName'], 'BuildId': bld['BuildId'], 'Region': bld["RegionsList"][region], 'RegionLength': regLength }
             
             if choice == 1:             #Update Build Region and Reduce Standby Limits
                 UpdateServerLimits(bldDictionary)
@@ -221,9 +222,6 @@ def MainLoopHandler(choice, mps):
             regIndex += 1
         bldIndex += 1
 
-        #if choice == 2:                 #Shutdown Multiplayer Server
-        #    ShutdownAllServers(bldDictionary)
-    
     return
 
 # Menu driven user interface
