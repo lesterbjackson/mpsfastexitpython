@@ -227,7 +227,7 @@ def MainLoopHandler(choice, mps):
 # Menu driven user interface
 def MenuHandler():
     os.system('cls')
-    print("1 - Fast Update Standbys to Zero")
+    print("1 - Fast Update Server Limits")
     print("2 - Fast Shutdown Active Servers")
     print("3 - Exit")
     return
