@@ -2,7 +2,7 @@
 # mpsfastexitpython
 #
 # Author:      Lester Jackson
-# GitHub:      https://github.com/lesterjackson
+# GitHub:      https://github.com/lesterbjackson
 # Title:       MPSFastExitPython
 # Published:   Inital September 8, 2021
 # Description: A Python coded utility that can quickly (a) shutdown MPS active servers or (b) reduce max & standby limits to zero.
